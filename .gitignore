@@ -34,3 +34,5 @@ build/
 
 shopify/
 Zara/
+!src/main/resources/static/images/zara/
+!src/main/resources/static/images/zara/*.jpg
