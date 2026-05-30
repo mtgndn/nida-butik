@@ -1,7 +1,16 @@
 package org.example.nidabutik.config;
 
-import org.example.nidabutik.entity.*;
-import org.example.nidabutik.repository.*;
+import org.example.nidabutik.entity.Brand;
+import org.example.nidabutik.entity.Category;
+import org.example.nidabutik.entity.Customer;
+import org.example.nidabutik.entity.Gender;
+import org.example.nidabutik.entity.Product;
+import org.example.nidabutik.entity.Supplier;
+import org.example.nidabutik.repository.BrandRepository;
+import org.example.nidabutik.repository.CategoryRepository;
+import org.example.nidabutik.repository.CustomerRepository;
+import org.example.nidabutik.repository.ProductRepository;
+import org.example.nidabutik.repository.SupplierRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

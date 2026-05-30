@@ -1,10 +1,10 @@
 # Nida Butik Fashion Backend
 
-Spring Boot ile geliştirilmiş moda satış uygulaması. Proje PostgreSQL üzerinde 3NF'e uygun müşteri, ürün, tedarikçi, sipariş, sipariş kalemi ve ödeme modelini kullanır. Nida Butik vitrini Zara benzeri minimal ve görsel odaklı bir koleksiyon sayfası olarak tasarlanmıştır.
+Spring Boot ile geliştirilmiş moda satış uygulaması. Proje PostgreSQL üzerinde 3NF'e uygun müşteri, ürün, tedarikçi, sipariş, sipariş kalemi ve ödeme modelini kullanır. Nida Butik vitrini minimal ve görsel odaklı bir koleksiyon sayfası olarak tasarlanmıştır.
 
 ## Teknolojiler
 
-- Java 17
+- Java 17 veya üzeri
 - Spring Boot 4
 - Spring Web MVC
 - Spring Data JPA
@@ -14,7 +14,7 @@ Spring Boot ile geliştirilmiş moda satış uygulaması. Proje PostgreSQL üzer
 - Docker Compose
 - PostgreSQL JDBC 42.7.11
 
-## Kurulum
+## Kurulum ve Çalıştırma
 
 PostgreSQL container'ını başlatın:
 
@@ -28,10 +28,22 @@ Uygulamayı çalıştırın:
 .\mvnw.cmd spring-boot:run
 ```
 
-Tarayıcı:
+Tarayıcıdan açın:
 
 ```text
 http://localhost:8080
+```
+
+8080 portu doluysa eski çalışan uygulamayı kapatın veya farklı port kullanın:
+
+```powershell
+.\mvnw.cmd spring-boot:run "-Dspring-boot.run.arguments=--server.port=8081"
+```
+
+Bu durumda adres:
+
+```text
+http://localhost:8081
 ```
 
 ## Varsayılan Kullanıcılar
@@ -60,6 +72,12 @@ GET /api/customers/top-buyers?gender=FEMALE
 
 Sipariş oluşturma:
 
+```http
+POST /api/orders
+Authorization: Basic admin:admin123
+Content-Type: application/json
+```
+
 ```json
 {
   "customerId": 1,
@@ -70,6 +88,12 @@ Sipariş oluşturma:
 ```
 
 Ödeme alma:
+
+```http
+POST /api/payments
+Authorization: Basic admin:admin123
+Content-Type: application/json
+```
 
 ```json
 {
@@ -90,10 +114,17 @@ POST /api/payments/rollback-demo
 - SQL injection riskine karşı Spring Data JPA repository ve parametreli sorgu altyapısı kullanılır.
 - DTO ve `jakarta.validation` ile dış girdiler sınırlandırılır.
 - XSS riskini azaltmak için frontend tarafında `textContent` kullanılır ve CSP header'ı tanımlıdır.
-- CSRF cookie tabanlı oturum kullanılmadığı için stateless Basic Auth API'de devre dışıdır; yazma işlemleri ADMIN rolüyle sınırlandırılmıştır.
+- CSRF, stateless Basic Auth API kullanıldığı için devre dışıdır; yazma işlemleri ADMIN rolüyle sınırlandırılmıştır.
 - Frame içine gömülme engellenir ve hata cevapları hassas detay döndürmez.
-- Spring Boot 4.0.6, CVE-2026-40976 için düzeltme içeren sürümdür.
-- PostgreSQL JDBC 42.7.11, CVE-2026-42198 için düzeltme içeren sürümdür.
+- Spring Boot 4.0.6 ve PostgreSQL JDBC 42.7.11 sürümleri kullanılır.
+
+## Sunum Kontrol Listesi
+
+1. Docker Desktop açık olsun.
+2. `docker compose up -d` komutunu çalıştırın.
+3. `.\mvnw.cmd spring-boot:run` komutunu çalıştırın.
+4. Terminalde `Started NidaButikApplication` satırını görün.
+5. Tarayıcıda `http://localhost:8080` adresini açın.
 
 ## Notlar
 
